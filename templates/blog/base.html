@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load blog_tags %}
+{% load staticfiles %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title_block %} {% endblock %}</title>
+    <link rel="stylesheet" href="{% static "css/bootstrap_css.css" %}">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+  </head>
+  <body>
+
+    <div class="content">
+      {% block content%}
+      {% endblock %}
+    </div>
+    <div class="sidebar">
+      <h2>The TimeLabel Blog</h2>
+      <p>Total Number of posts are :
+        <span style="font-size:40px; color:blue;background:black;border-radius:40px;">
+        {% my_total %}</span>
+      </p>
+      <h3>Latest Posts are</h3>{%show_latest_post%}
+      <h3>Most Commented Posts are </h3>
+      {%get_most_commented_posts as most_commented_posts%}
+      <ul>
+         {%for post in most_commented_posts %}
+        <li><a href="{{post.get_absolute_url}}">{{post.title}}</a></li>
+        {%endfor%}
+      </ul>
+      <ul>
+        {% for post in most_commented_posts %}
+          <li>{{post.title}}</li>
+        {% endfor %}
+      </ul>
+      <!-- {% for post in get_most_commented_posts %}
+      <ul>
+        <li>{{post.title}}</li>
+      </ul>
+      {% endfor %} -->
+    </div>
+<!--      <div align="left" style="float:left;">
+    <marquee id="mar_text" direction="right" behavior="alternate">Welcome to TimeLabel's Blog</marquee>
+ -->    <!-- </div> -->
+  <img src="{% static "css/download.gif" %}">
+  </body>
+</html>

@@ -1,0 +1,19 @@
+{% extends "blog/base.html" %}
+{% block title_block %}The TimeLabel Blog Home Page{% endblock title_block %}
+  {% block content %}
+    <h2>The TimeLabel's Blog</h1>
+    {% for post in post_list %}
+        <a id="post_title" href="{{post.get_absolute_url}}"><h2>{{post.title}}</h2></a>
+        <p id="date">Published on {{post.publish}} by {{post.author|title}} Status : {{post.status}}</p>
+        <p>Tags:
+            {%for tag in post.tags.all %}
+
+                <a id="tags_btn" href="{% url 'post_list_by_tag_name' tag.slug %}" class='btn btn-success'>{{tag.name}}</a>
+
+
+            {%endfor%}
+        {{post.body|truncatewords:30|linebreaks}}
+
+    {% endfor %}
+    {% include "blog/pagination.html" with page=post_list %}
+  {% endblock content %}
